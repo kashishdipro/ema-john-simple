@@ -1,12 +1,43 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header/Header';
 import Shop from './components/Shop/Shop';
+import Inventory from './components/Inventory/Inventory';
+import Review from './components/Order Review/Review';
+import Order from './components/Order/Order';
+import Main from './layouts/Main';
+import { ProductsAndCartLoader } from './loaders/ProductsAndCartLoader';
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Main></Main>,
+      children: [
+        {
+          path: '/',
+          loader: () => fetch('products.json'),
+          element: <Shop></Shop>
+        },
+        {
+          path:'/order',
+          loader: ProductsAndCartLoader,
+          element:<Order></Order>
+        },
+        {
+          path:'/order-review',
+          element:<Review></Review>
+        },
+        {
+          path:'/manage-inventory',
+          element:<Inventory></Inventory>
+        }
+      ]
+    },
+    
+  ])
   return (
     <div>
-      <Header></Header>
-      <Shop></Shop>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
