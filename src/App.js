@@ -8,6 +8,8 @@ import Main from './layouts/Main';
 import { ProductsAndCartLoader } from './loaders/ProductsAndCartLoader';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
+import Shipping from './components/Shipping/Shipping';
+import ProtectedRoute from './router/ProtectedRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -31,7 +33,11 @@ function App() {
         },
         {
           path:'/manage-inventory',
-          element:<Inventory></Inventory>
+          element: <ProtectedRoute><Inventory/></ProtectedRoute>
+        },
+        {
+          path: '/shipping',
+          element: <ProtectedRoute><Shipping/></ProtectedRoute>
         },
         {
           path: '/login',
