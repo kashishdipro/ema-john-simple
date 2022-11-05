@@ -11,7 +11,7 @@ const ProtectedRoute = ({children}) => {
         console.log('loading found');
         return <div>Loading ...</div>
     }
-    if(user && user.id){
+    if(user && user.uid){
         return children;
     }
     

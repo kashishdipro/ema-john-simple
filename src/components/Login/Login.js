@@ -1,14 +1,22 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 import './Login.css'
 
 const Login = () => {
-    const {signIn} = useContext(AuthContext);
+    const {user, signIn} = useContext(AuthContext);
+    console.log(user);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+    console.log(from);
+    // useEffect(() =>{
+    //     if(user){
+            
+    //     }
+    // },[from, navigate, user])
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -20,8 +28,9 @@ const Login = () => {
         .then(result =>{
             const user = result.user;
             console.log(user);
-            form.reset();
+            
             navigate(from, {replace: true});
+            form.reset();
         })
         .catch(err => console.error(err))
     }
